@@ -1,0 +1,99 @@
+---
+title: "00_install"
+author: "Randy"
+date: "2/17/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+## to install the stable/testing version, 
+## do one of:
+
+install.packages(
+  "INLA",   
+  repos = c(getOption("repos"),
+            INLA = "https://inla.r-inla-download.org/R/stable"), 
+  dep = TRUE)
+
+install.packages(
+  "INLA",
+  repos = c(getOption("repos"),
+            INLA = "https://inla.r-inla-download.org/R/testing"), 
+  dep=TRUE)
+
+
+devtools::install_github("julianfaraway/brinla")
+```
+
+
+```{r}
+## update the stable/testing version the package, 
+## doing:
+## 
+# for the stable version
+inla.upgrade() 
+
+# for the testing version
+inla.upgrade(testing=TRUE) 
+```
+
+
+```{r}
+## Windows will not update a package already loaded, 
+## so then you have to remove the package and install it from scratch. 
+## there are two suggested packages, 
+## ‘graph’ and ‘Rgraphviz’, 
+## that are on Bioconductor, 
+## and you can install those with:
+
+if (
+  !requireNamespace(
+    "BiocManager",
+    quietly = TRUE)
+  ) {
+  install.packages("BiocManager")
+}
+
+BiocManager::install(
+  c("graph", "Rgraphviz"), 
+  dep = TRUE)
+```
+
+
+```{r}
+## for installing alternative builds in linux
+inla.binary.install()
+```
+
+
+```{r}
+## test example:
+library(INLA)
+inla.prune()
+
+n <- 100
+a <- 1
+b <- 1
+tau <- 100
+z <- rnorm(n)
+eta <- a + b * z
+
+scale <- exp(rnorm(n))
+prec <- scale * tau
+y <- rnorm(n, mean = eta, 
+           sd = 1 / sqrt(prec))
+
+data <- list(y = y, z = z)
+formula <- y ~ 1 + z
+result <- inla(formula, 
+               family = "gaussian", 
+               data = data)
+
+summary(result)
+```
+
