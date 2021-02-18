@@ -129,21 +129,21 @@ imod3 <- inla(y ~ x - 1,
 ## [6]mode
 hubtoage(ibci3[c(1, 3, 4, 5, 6)])
 
-# Bayes Theory
+## bayes theory ---------------------------------------
 
 
-# Prior and Posterior Distributions
+## prior and posterior distributions ---------------------------------------
 
 
-# Model Checking
+## model checking ----------------------------------------------
 
 
-# Model Selection
+## model selection ----------------------------------------------
 
 
-# Hypothesis Testing
+## hypothesis testing --------------------------------------------------
 
 
-# Bayesian Computation
+## bayesian computation -------------------------------------------------
 
 sessionInfo()
